@@ -19,9 +19,9 @@ resource "yandex_compute_instance" "instance" {
         : "${username}:${ssh_key}"
       ]
     ])),
-    user-data = "#cloud-config\nusers:\n  - name: debian\n    groups: sudo\n    shell: /bin/bash\n    sudo: 'ALL=(ALL) NOPASSWD:ALL'\n    ssh-authorized-keys:\n      - 404AAAAC3NzaC1lZDI1NTE5AAAAICiy90rsFAF8I8nKWRtYtVuCI3N0VqWR40hiJJANe8W3 aleksandrborodiy@workmachine.local"
+    user-data = file("cloud-init.yaml")
     } : {
-    user-data = "#cloud-config\nusers:\n  - name: debian\n    groups: sudo\n    shell: /bin/bash\n    sudo: 'ALL=(ALL) NOPASSWD:ALL'\n    ssh-authorized-keys:\n      - 404AAAAC3NzaC1lZDI1NTE5AAAAICiy90rsFAF8I8nKWRtYtVuCI3N0VqWR40hiJJANe8W3 aleksandrborodiy@workmachine.local"
+    user-data = file("cloud-init.yaml")
   }
   service_account_id        = try(each.value.service_account_id, null)
   allow_stopping_for_update = try(each.value.allow_stopping_for_update, false)
